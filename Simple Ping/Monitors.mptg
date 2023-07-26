@@ -1,0 +1,48 @@
+<TemplateGroup>
+  <Instances>
+    <Instance ID="Instancec022bce0fc68453ebdbbceca97535e8a" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <MonitorType>Simple.Ping.ICMPPing.MonitorType</MonitorType>
+        <MonitorConfig>&lt;Watcher&gt;.&lt;/Watcher&gt;&lt;Address&gt;$Target/Property[Type="Simple.Ping.Target"]/Address$&lt;/Address&gt;&lt;ExpectedStatus&gt;$Target/Property[Type="Simple.Ping.Target"]/ExpectedStatus$&lt;/ExpectedStatus&gt;&lt;ScheduleStartTime&gt;00:00&lt;/ScheduleStartTime&gt;&lt;ScheduleEndTime&gt;23:59&lt;/ScheduleEndTime&gt;&lt;ScheduleDays&gt;127&lt;/ScheduleDays&gt;&lt;MatchCount&gt;1&lt;/MatchCount&gt;&lt;Frequency&gt;300&lt;/Frequency&gt;&lt;Severity&gt;Critical&lt;/Severity&gt;&lt;SyncTime&gt;&lt;/SyncTime&gt;</MonitorConfig>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>Healthy</OperationalStateId>
+            <OperationalStateDisplayName>Healthy</OperationalStateDisplayName>
+            <MonitorTypeStateId>Healthy</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Warning</OperationalStateId>
+            <OperationalStateDisplayName>Warning</OperationalStateDisplayName>
+            <MonitorTypeStateId>Warning</MonitorTypeStateId>
+            <HealthState>Warning</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Critical</OperationalStateId>
+            <OperationalStateDisplayName>Critical</OperationalStateDisplayName>
+            <MonitorTypeStateId>Critical</MonitorTypeStateId>
+            <HealthState>Error</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Internal</Accessibility>
+        <Id>PingStatus.Monitor</Id>
+        <DisplayName>Ping Status</DisplayName>
+        <Description>Pings the target and sets health based on the response and the expected status</Description>
+        <Target>Simple.Ping.Target</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>Warning</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <AlertName>Unexpected Ping Status</AlertName>
+        <AlertDescription>The ping result for $Target/Property[Type="System!System.Entity"]/DisplayName$ ($Target/Property[Type="Simple.Ping.Target"]/Address$) is not $Target/Property[Type="Simple.Ping.Target"]/ExpectedStatus$
+</AlertDescription>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+  </Instances>
+</TemplateGroup>

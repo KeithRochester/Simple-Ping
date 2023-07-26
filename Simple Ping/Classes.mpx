@@ -1,0 +1,68 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="Simple.Ping.Resource.Pool" Accessibility="Public" Abstract="false" Base="SC!Microsoft.SystemCenter.ManagementServicePool" Hosted="false" Singleton="true" />
+        <ClassType ID="Simple.Ping.Target" Base="System!System.Entity" Accessibility="Public" Abstract="false" Hosted="false" Singleton="false">
+          <Property ID="Address" Type="string" Key="true" />
+          <Property ID="MatchCount" Type="int" Key="false"/>
+          <Property ID="FrequencySeconds" Type="int" Key="false"/>
+          <Property ID="ExpectedStatus" Type="string" Key="true"/>
+        </ClassType>
+      </ClassTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Simple.Ping.Resource.Pool.Discovery" Target="Simple.Ping.Resource.Pool" Enabled="true" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"/>
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$Target/Id$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Simple.Ping.Target"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
+            </MembershipRule>
+          </MembershipRules>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+
+        <DisplayString ElementID="Simple.Ping.Resource.Pool">
+          <Name>Simple Ping Monitoring Resource Pool</Name>
+          <Description>Resource Pool used to run Simple Ping Monitoring</Description>
+        </DisplayString>
+        
+        <DisplayString ElementID="Simple.Ping.Target">
+          <Name>Simple Ping Target</Name>
+          <Description>Target to be pinged</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.Target" SubElementID="Address">
+          <Name>Address</Name>
+          <Description>Address to Ping</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.Target" SubElementID="ExpectedStatus">
+          <Name>Expected Status</Name>
+          <Description>Expected status Up or Down.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.Target" SubElementID="MatchCount">
+          <Name>Match Count</Name>
+          <Description>Number of consecutive samples before state changes.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.Target" SubElementID="FrequencySeconds">
+          <Name>Frequency Seconds</Name>
+          <Description>Frequency in seconds.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

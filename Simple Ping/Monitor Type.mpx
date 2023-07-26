@@ -1,0 +1,301 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <MonitorTypes>
+      <UnitMonitorType ID="Simple.Ping.ICMPPing.MonitorType" Accessibility="Public">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="Healthy" NoDetection="false" />
+          <MonitorTypeState ID="Warning" NoDetection="false" />
+          <MonitorTypeState ID="Critical" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element name="Watcher" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="Address" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ExpectedStatus" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ScheduleStartTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ScheduleEndTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ScheduleDays" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="MatchCount" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="Frequency" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="Severity" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="ExpectedStatus" Selector="$Config/ExpectedStatus$" ParameterType="string" />
+          
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleStartTime" Selector="$Config/ScheduleStartTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleEndTime" Selector="$Config/ScheduleEndTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleDays" Selector="$Config/ScheduleDays$" ParameterType="int" />
+          <OverrideableParameter ID="Frequency" Selector="$Config/Frequency$" ParameterType="int" />
+          <OverrideableParameter ID="MatchCount" Selector="$Config/MatchCount$" ParameterType="int" />
+          <OverrideableParameter ID="Severity" Selector="$Config/Severity$" ParameterType="string" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="Simple.Ping.ICMPPing.DataSource">
+              <Frequency>$Config/Frequency$</Frequency>
+              <ScheduleStartTime>$Config/ScheduleStartTime$</ScheduleStartTime>
+              <ScheduleEndTime>$Config/ScheduleEndTime$</ScheduleEndTime>
+              <ScheduleDays>$Config/ScheduleDays$</ScheduleDays>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <Watcher>$Config/Watcher$</Watcher>
+              <Address>$Config/Address$</Address>
+            </DataSource>
+            <ConditionDetection ID="PingUnhealthy" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <Or>
+                  <Expression>
+                    <And>
+                      <Expression>
+                        <SimpleExpression>
+                          <ValueExpression>
+                            <Value Type="String">$Config/ExpectedStatus$</Value>
+                          </ValueExpression>
+                          <Operator>Equal</Operator>
+                          <ValueExpression>
+                            <Value Type="String">DOWN</Value>
+                          </ValueExpression>
+                        </SimpleExpression>
+                      </Expression>
+                      <Expression>
+                        <SimpleExpression>
+                          <ValueExpression>
+                            <XPathQuery>Property[@Name='StatusCode']</XPathQuery>
+                          </ValueExpression>
+                          <Operator>Equal</Operator>
+                          <ValueExpression>
+                            <Value Type="UnsignedInteger">0</Value>
+                          </ValueExpression>
+                        </SimpleExpression>
+                      </Expression>
+                    </And>
+                  </Expression>
+                  <Expression>
+                    <And>
+                      <Expression>
+                        <SimpleExpression>
+                          <ValueExpression>
+                            <Value Type="String">$Config/ExpectedStatus$</Value>
+                          </ValueExpression>
+                          <Operator>Equal</Operator>
+                          <ValueExpression>
+                            <Value Type="String">UP</Value>
+                          </ValueExpression>
+                        </SimpleExpression>
+                      </Expression>
+                      <Expression>
+                        <Or>
+                          <Expression>
+                            <Not>
+                              <Expression>
+                                <Exists>
+                                  <ValueExpression>
+                                    <XPathQuery>Property[@Name='StatusCode']</XPathQuery>
+                                  </ValueExpression>
+                                </Exists>
+                              </Expression>
+                            </Not>
+                          </Expression>
+                          <Expression>
+                            <SimpleExpression>
+                              <ValueExpression>
+                                <XPathQuery>Property[@Name='StatusCode']</XPathQuery>
+                              </ValueExpression>
+                              <Operator>NotEqual</Operator>
+                              <ValueExpression>
+                                <Value Type="UnsignedInteger">0</Value>
+                              </ValueExpression>
+                            </SimpleExpression>
+                          </Expression>
+                        </Or>
+                      </Expression>
+                    </And>
+                  </Expression>
+                </Or>
+              </Expression> 
+              <SuppressionSettings>
+                <MatchCount>$Config/MatchCount$</MatchCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+            <ConditionDetection ID="PingHealthy" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <Or>
+                  <Expression>
+                    <And>
+                      <Expression>
+                        <SimpleExpression>
+                          <ValueExpression>
+                            <Value Type="String">$Config/ExpectedStatus$</Value>
+                          </ValueExpression>
+                          <Operator>Equal</Operator>
+                          <ValueExpression>
+                            <Value Type="String">UP</Value>
+                          </ValueExpression>
+                        </SimpleExpression>
+                      </Expression>
+                      <Expression>
+                        <SimpleExpression>
+                          <ValueExpression>
+                            <XPathQuery>Property[@Name='StatusCode']</XPathQuery>
+                          </ValueExpression>
+                          <Operator>Equal</Operator>
+                          <ValueExpression>
+                            <Value Type="UnsignedInteger">0</Value>
+                          </ValueExpression>
+                        </SimpleExpression>
+                      </Expression>
+                    </And>
+                  </Expression>
+                  <Expression>
+                    <And>
+                      <Expression>
+                        <SimpleExpression>
+                          <ValueExpression>
+                            <Value Type="String">$Config/ExpectedStatus$</Value>
+                          </ValueExpression>
+                          <Operator>Equal</Operator>
+                          <ValueExpression>
+                            <Value Type="String">DOWN</Value>
+                          </ValueExpression>
+                        </SimpleExpression>
+                      </Expression>
+                      <Expression>
+                        <Or>
+                          <Expression>
+                            <Not>
+                              <Expression>
+                                <Exists>
+                                  <ValueExpression>
+                                    <XPathQuery>Property[@Name='StatusCode']</XPathQuery>
+                                  </ValueExpression>
+                                </Exists>
+                              </Expression>
+                            </Not>
+                          </Expression>
+                          <Expression>
+                            <SimpleExpression>
+                              <ValueExpression>
+                                <XPathQuery>Property[@Name='StatusCode']</XPathQuery>
+                              </ValueExpression>
+                              <Operator>NotEqual</Operator>
+                              <ValueExpression>
+                                <Value Type="UnsignedInteger">0</Value>
+                              </ValueExpression>
+                            </SimpleExpression>
+                          </Expression>
+                        </Or>
+                      </Expression>
+                    </And>
+                  </Expression>
+                </Or>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/MatchCount$</MatchCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+            <ConditionDetection ID="CDCritical" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <Value Type="String">$Config/Severity$</Value>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">Critical</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="CDWarning" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <Value Type="String">$Config/Severity$</Value>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">Warning</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="Healthy">
+              <Node ID="PingHealthy">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="Critical">
+              <Node ID="CDCritical">
+                <Node ID="PingUnhealthy">
+                  <Node ID="DS" />
+                </Node>
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="Warning">
+              <Node ID="CDWarning">
+                <Node ID="PingUnhealthy">
+                  <Node ID="DS" />
+                </Node>
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType">
+          <Name>SMF: Windows Ping Monitor Type</Name>
+          <Description>Pings the target address and alerts if unable</Description>
+        </DisplayString>
+
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="Frequency">
+          <Name>Frequency</Name>
+          <Description>Frequency in seconds that the monitoring will run</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="ScheduleDays">
+          <Name>Schedule Days</Name>
+          <Description>
+            Bit mask for the days of the week that monitoring should run
+
+            Sunday = 1
+            Monday = 2
+            Tuesday = 4
+            Wednesday = 8
+            Thursday = 16
+            Friday = 32
+            Saturday = 64
+
+            Sunday to Saturday  = 127
+            Monday to Friday = 62.
+          </Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="ScheduleStartTime">
+          <Name>Schedule Start Time</Name>
+          <Description>Time of day that monitoring will run from e.g. 00:00, 08:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="ScheduleEndTime">
+          <Name>Schedule End Time</Name>
+          <Description>Time of day that monitoring will stop running e.g. 23:59, 17:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="Severity">
+          <Name>Severity</Name>
+          <Description>Severity or alerts and state on dashboards. Critical or Warning</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="MatchCount">
+          <Name>Match Count</Name>
+          <Description>The number of consecutive samples that must occur before the monitor is unhealthy</Description>
+        </DisplayString>
+
+        <DisplayString ElementID="Simple.Ping.ICMPPing.MonitorType" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>Sync Time</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

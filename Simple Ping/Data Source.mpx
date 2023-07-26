@@ -1,0 +1,119 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="Simple.Ping.ICMPPing.DataSource" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="Frequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleStartTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleEndTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleDays" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Watcher" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Address" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="Frequency" Selector="$Config/Frequency$" ParameterType="int" />
+          <OverrideableParameter ID="ScheduleStartTime" Selector="$Config/ScheduleStartTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleEndTime" Selector="$Config/ScheduleEndTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleDays" Selector="$Config/ScheduleDays$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="Watcher" Selector="$Config/Watcher$" ParameterType="string" />
+          <OverrideableParameter ID="Address" Selector="$Config/Address$" ParameterType="string" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="SimpleScheduler" TypeID="System!System.SimpleScheduler">
+                <IntervalSeconds>$Config/Frequency$</IntervalSeconds>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="SC!Microsoft.SystemCenter.ICMPProbe">
+                <ComputerSourcePing>$Config/Watcher$</ComputerSourcePing>
+                <NetworkTargetToPing>$Config/Address$</NetworkTargetToPing>
+              </ProbeAction>
+              <ConditionDetection ID="SchedulerFilter" TypeID="System!System.SchedulerFilter">
+                <SchedulerFilter>
+                  <ProcessDataMode>OnSchedule</ProcessDataMode>
+                  <Schedule>
+                    <WeeklySchedule>
+                      <Windows>
+                        <Daily>
+                          <Start>$Config/ScheduleStartTime$</Start>
+                          <End>$Config/ScheduleEndTime$</End>
+                          <DaysOfWeekMask>$Config/ScheduleDays$</DaysOfWeekMask>
+                        </Daily>
+                      </Windows>
+                    </WeeklySchedule>
+                    <ExcludeDates />
+                  </Schedule>
+                  <UseCurrentTime>true</UseCurrentTime>
+                </SchedulerFilter>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe">
+                <Node ID="SchedulerFilter">
+                  <Node ID="SimpleScheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource">
+          <Name>Simple Ping ICMP Ping Data Source</Name>
+          <Description>Pings the address on a simple schedule</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="Address">
+          <Name>Address</Name>
+          <Description>Address (IP address or FQDN) to be tested</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="Watcher">
+          <Name>Watcher</Name>
+          <Description>Watcher location to ping from</Description>
+        </DisplayString>
+
+
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="Frequency">
+          <Name>Frequency</Name>
+          <Description>Frequency monitoring will run</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="ScheduleDays">
+          <Name>ScheduleDays (Bit Mask)</Name>
+          <Description>
+            Bit mask for the days of the week that monitoring should run.
+
+            Sunday = 1
+            Monday = 2
+            Tuesday = 4
+            Wednesday = 8
+            Thursday = 16
+            Friday = 32
+            Saturday = 64
+
+            Sunday to Saturday  = 127
+            Monday to Friday = 62
+          </Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="ScheduleStartTime">
+          <Name>Schedule Start Time</Name>
+          <Description>Time of day that monitoring will run from e.g. 00:00, 08:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="ScheduleEndTime">
+          <Name>Schedule End Time</Name>
+          <Description>Time of day that monitoring will stop running e.g. 23:59, 17:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Simple.Ping.ICMPPing.DataSource" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>Sync Time</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

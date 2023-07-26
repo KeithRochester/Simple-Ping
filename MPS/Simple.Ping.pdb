@@ -1,0 +1,62 @@
+Classes.mpx*Simple.Ping.Resource.Pool*5*10*ClassType
+Classes.mpx*Simple.Ping.Target*6*10*ClassType
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*4*8*DataSourceModuleType
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*4*8*WriteActionModuleType
+Remove Simple Ping Write Action.mpx*Simple.Ping.RemoveSimplePing.WriteAction*4*8*WriteActionModuleType
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*4*8*UnitMonitorType
+Classes.mpx*Simple.Ping.Resource.Pool.Discovery*18*8*Discovery
+Performance Collection.mpx*Simple.Ping.Target.ResponseTimePerformanceCollection.Rule*4*8*Rule
+Agent Tasks.mptg.mpx*Simple.Ping.RemoveSimplePing.Task*6*8*Task
+Agent Tasks.mptg.mpx*Simple.Ping.AddSimplePing.Task*15*8*Task
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor*6*8*UnitMonitor
+Views.mpx*Simple.Ping.Resource.Pool.View*5*8*View
+Views.mpx*Simple.Ping.Target.View*26*8*View
+Views.mpx*Simple.Ping.Root.Folder*65*8*Folder
+Views.mpx*Simple.Ping.Resource.Pool.View.FolderItem*68*8*FolderItem
+Views.mpx*Simple.Ping.Target.View.FolderItem*69*8*FolderItem
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor.AlertMessage*41*8*StringResource
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*77*10*DisplayString
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*81*10*DisplayString*SubElementID*DisplayName
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*85*10*DisplayString*SubElementID*Address
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*89*10*DisplayString*SubElementID*ExpectedStatus
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*93*10*DisplayString*SubElementID*MatchCount
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*97*10*DisplayString*SubElementID*FrequencySeconds
+Add Simple Ping Write Action.mpx*Simple.Ping.AddSimplePing.WriteAction*101*10*DisplayString*SubElementID*ManagementServer
+Agent Tasks.mptg.mpx*Simple.Ping.RemoveSimplePing.Task*31*10*DisplayString
+Agent Tasks.mptg.mpx*Simple.Ping.AddSimplePing.Task*35*10*DisplayString
+Classes.mpx*Simple.Ping.Resource.Pool*40*10*DisplayString
+Classes.mpx*Simple.Ping.Target*45*10*DisplayString
+Classes.mpx*Simple.Ping.Target*49*10*DisplayString*SubElementID*Address
+Classes.mpx*Simple.Ping.Target*53*10*DisplayString*SubElementID*ExpectedStatus
+Classes.mpx*Simple.Ping.Target*57*10*DisplayString*SubElementID*MatchCount
+Classes.mpx*Simple.Ping.Target*61*10*DisplayString*SubElementID*FrequencySeconds
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*69*10*DisplayString
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*73*10*DisplayString*SubElementID*Address
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*77*10*DisplayString*SubElementID*Watcher
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*83*10*DisplayString*SubElementID*Frequency
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*87*10*DisplayString*SubElementID*ScheduleDays
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*104*10*DisplayString*SubElementID*ScheduleStartTime
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*108*10*DisplayString*SubElementID*ScheduleEndTime
+Data Source.mpx*Simple.Ping.ICMPPing.DataSource*112*10*DisplayString*SubElementID*SyncTime
+ManagementPack.mpx*Simple.Ping*5*10*DisplayString
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*251*10*DisplayString
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*256*10*DisplayString*SubElementID*Frequency
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*260*10*DisplayString*SubElementID*ScheduleDays
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*277*10*DisplayString*SubElementID*ScheduleStartTime
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*281*10*DisplayString*SubElementID*ScheduleEndTime
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*285*10*DisplayString*SubElementID*Severity
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*289*10*DisplayString*SubElementID*MatchCount
+Monitor Type.mpx*Simple.Ping.ICMPPing.MonitorType*294*10*DisplayString*SubElementID*SyncTime
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor*47*10*DisplayString
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor.AlertMessage*51*10*DisplayString
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor*56*10*DisplayString*SubElementID*Healthy
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor*60*10*DisplayString*SubElementID*Warning
+Monitors.mptg.mpx*Simple.Ping.PingStatus.Monitor*64*10*DisplayString*SubElementID*Critical
+Performance Collection.mpx*Simple.Ping.Target.ResponseTimePerformanceCollection.Rule*33*10*DisplayString
+Remove Simple Ping Write Action.mpx*Simple.Ping.RemoveSimplePing.WriteAction*55*10*DisplayString
+Remove Simple Ping Write Action.mpx*Simple.Ping.RemoveSimplePing.WriteAction*59*10*DisplayString*SubElementID*ManagementServer
+Views.mpx*Simple.Ping.Root.Folder*77*10*DisplayString
+Views.mpx*Simple.Ping.Resource.Pool.View*80*10*DisplayString
+Views.mpx*Simple.Ping.Target.View*83*10*DisplayString
+ManagementPack.mpx*Simple.Ping*11*10*KnowledgeArticle
+Performance Collection.mpx*Simple.Ping.Target.ResponseTimePerformanceCollection.Rule*39*10*KnowledgeArticle

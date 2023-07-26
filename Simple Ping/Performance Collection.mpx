@@ -1,0 +1,71 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Rules>
+      <Rule ID="Simple.Ping.Target.ResponseTimePerformanceCollection.Rule" Enabled="true" Target="Simple.Ping.Target" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Simple.Ping.ICMPPing.DataSource">
+            <Frequency>$Target/Property[Type="Simple.Ping.Target"]/FrequencySeconds$</Frequency>
+            <ScheduleStartTime>00:00</ScheduleStartTime>
+            <ScheduleEndTime>23:59</ScheduleEndTime>
+            <ScheduleDays>127</ScheduleDays>
+            <SyncTime/>
+            <Watcher>.</Watcher>
+            <Address>$Target/Property[Type="Simple.Ping.Target"]/Address$</Address>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="PerfMapper" TypeID="Perf!System.Performance.DataGenericMapper">
+          <ObjectName>Ping</ObjectName>
+          <CounterName>Response Time (ms)</CounterName>
+          <InstanceName>$Target/Property[Type="Simple.Ping.Target"]/Address$</InstanceName>
+          <Value>$Data/Property[@Name='ResponseTime']$</Value>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="PerfWriteAction" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="PerfWriteToDWAction" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+    </Rules>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Simple.Ping.Target.ResponseTimePerformanceCollection.Rule">
+          <Name>ICMP Ping Response Time Performance Collection Rule</Name>
+          <Description></Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Simple.Ping.Target.ResponseTimePerformanceCollection.Rule" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>ICMP Ping Response Time Performance Collection Rule</maml:title>
+              <maml:para>
+                <maml:ui>Description</maml:ui>
+              </maml:para>
+              <maml:para></maml:para>
+              <maml:para>
+                <maml:ui>Configuration</maml:ui>
+              </maml:para>
+              <maml:para>
+                Enabled by default
+              </maml:para>
+              <maml:para>
+                Documentation and the latest version can be found on GitHub -<maml:navigationLink>
+                  <maml:linkText>https://github.com/KeithRochester/Simple-Ping.</maml:linkText>
+                  <maml:uri href="https://github.com/KeithRochester/Simple-Ping"/>
+                </maml:navigationLink>. 
+              </maml:para>
+              <maml:para>
+                If you have any questions or suggestions, please send me a message <maml:navigationLink>
+                  <maml:linkText>keith.rochester@unit92.com</maml:linkText>
+                  <maml:uri href="mailto:keith.rochester@unit92.com?subject=Standard%20Monitoring%20Framework"/>
+                </maml:navigationLink>
+              </maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

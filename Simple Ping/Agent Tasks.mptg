@@ -1,0 +1,38 @@
+<TemplateGroup>
+  <Instances>
+    <Instance ID="Instancebebbf83c22ca42e2b2731d8e7af93953" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomTask" Version="1.0.0.0">
+      <CustomTaskConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Accessibility>Internal</Accessibility>
+        <Id>RemoveSimplePing.Task</Id>
+        <DisplayName>Remove Simple Ping</DisplayName>
+        <Description>Remove Simple Ping</Description>
+        <Target>Simple.Ping.Target</Target>
+        <Enabled>true</Enabled>
+        <Category>Maintenance</Category>
+        <Timeout>300</Timeout>
+        <Remotable>true</Remotable>
+        <ProbeActionId>PA</ProbeActionId>
+        <WriteActionId>WA</WriteActionId>
+        <WriteActionConfig>&lt;DisplayName&gt;$Target/Property[Type="System!System.Entity"]/DisplayName$&lt;/DisplayName&gt;&lt;Address&gt;$Target/Property[Type="Simple.Ping.Target"]/Address$&lt;/Address&gt;&lt;ExpectedStatus&gt;$Target/Property[Type="Simple.Ping.Target"]/ExpectedStatus$&lt;/ExpectedStatus&gt;&lt;ManagementServer&gt;.&lt;/ManagementServer&gt;</WriteActionConfig>
+        <WriteActionType>Simple.Ping.RemoveSimplePing.WriteAction</WriteActionType>
+      </CustomTaskConfig>
+    </Instance>
+    <Instance ID="Instancef32fca3ac8a04716a779eb67cdc74133" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomTask" Version="1.0.0.0">
+      <CustomTaskConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Accessibility>Internal</Accessibility>
+        <Id>AddSimplePing.Task</Id>
+        <DisplayName>Add Simple Ping</DisplayName>
+        <Description>Add Simple Ping</Description>
+        <Target>Simple.Ping.Resource.Pool</Target>
+        <Enabled>true</Enabled>
+        <Category>Maintenance</Category>
+        <Timeout>300</Timeout>
+        <Remotable>true</Remotable>
+        <ProbeActionId>PA</ProbeActionId>
+        <WriteActionId>WA</WriteActionId>
+        <WriteActionConfig>&lt;DisplayName&gt;ENTER DISPLAY NAME&lt;/DisplayName&gt;&lt;Address&gt;ENTER ADDRESS&lt;/Address&gt;&lt;ExpectedStatus&gt;UP&lt;/ExpectedStatus&gt;&lt;MatchCount&gt;1&lt;/MatchCount&gt;&lt;FrequencySeconds&gt;300&lt;/FrequencySeconds&gt;&lt;ManagementServer&gt;.&lt;/ManagementServer&gt;</WriteActionConfig>
+        <WriteActionType>Simple.Ping.AddSimplePing.WriteAction</WriteActionType>
+      </CustomTaskConfig>
+    </Instance>
+  </Instances>
+</TemplateGroup>

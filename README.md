@@ -1,4 +1,8 @@
 # Simple Ping SCOM Management Pack
+
+* [MP](MPS/Simple.Ping.mp)
+* [Visual Studio Solution](<Simple Ping>)
+
 Monitoring is performed by the "Simple Ping Monitoring Resource Pool" which by default contains all management servers. Monitors the ping status matches the expected value either up or down.
 
 Configuration is performed using two agent tasks. 
